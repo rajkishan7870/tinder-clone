@@ -1,0 +1,7 @@
+.parentDiv{
+    border: 1px solid rgb(235, 64, 64);
+    width: 30%;
+    height: 99.5vh;
+    display: flex;
+    flex-direction: column;
+}
