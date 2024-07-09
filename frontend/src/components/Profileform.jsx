@@ -10,6 +10,8 @@ import BasicInfo from "./BasicInfo";
 import Location from "./Location";
 import AddImage from "./AddImage";
 import Interest from "./Interest";
+import Relegion from "./Relegion";
+import OtherInformation from "./OtherInformation";
 
 export default function AccordionUsage() {
   return (
@@ -22,7 +24,11 @@ export default function AccordionUsage() {
         >
           Add Image
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails
+          sx={{
+            width: '35rem',
+          }}
+        >
           <AddImage />
         </AccordionDetails>
       </Accordion>
@@ -80,29 +86,23 @@ export default function AccordionUsage() {
           aria-controls="panel5-content"
           id="panel5-header"
         >
-          Accordion 2
+          Relegion
         </AccordionSummary>
         <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          <Relegion/>
         </AccordionDetails>
       </Accordion>
-      <Accordion defaultExpanded>
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel6-content"
           id="panel6-header"
         >
-          Accordion Actions
+          Other Information
         </AccordionSummary>
         <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          <OtherInformation/>
         </AccordionDetails>
-        <AccordionActions>
-          <Button>Cancel</Button>
-          <Button>Agree</Button>
-        </AccordionActions>
       </Accordion>
     </div>
   );

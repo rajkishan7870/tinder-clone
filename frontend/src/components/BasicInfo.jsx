@@ -16,6 +16,12 @@ export default function BasicInfo() {
           onChange={handleSubmit}
         />
         <Inputfield
+          title="Language"
+          placeholder="Write your proficient language"
+          name="language"
+          onChange={handleSubmit}
+        />
+        <Inputfield
           title="Gender"
           placeholder="Enter your gender"
           name="gender"
@@ -27,6 +33,7 @@ export default function BasicInfo() {
           name="height"
           onChange={handleSubmit}
         />
+
         <SaveButton onClick={handleSubmit} />
       </form>
     </div>
