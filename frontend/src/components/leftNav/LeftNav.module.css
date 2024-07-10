@@ -4,4 +4,5 @@
     height: 99.5vh;
     display: flex;
     flex-direction: column;
+    background-color: grey;
 }

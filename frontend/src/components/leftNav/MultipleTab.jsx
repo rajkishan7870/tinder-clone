@@ -35,18 +35,20 @@ function a11yProps(index) {
 }
 
 export default function MultipleTab() {
-  const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(0);
+    
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+      setValue(newValue);
+
   };
 
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Matches" {...a11yProps(0)} />
-          <Tab label="Messages" {...a11yProps(1)} />
+        <Tabs value={value} onChange={handleChange} textColor='white' aria-label="basic tabs example">
+          <Tab label="Matches" {...a11yProps(0)} sx={{color: "white"}} />
+          <Tab label="Messages" {...a11yProps(1)} sx={{color: "white"}} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>

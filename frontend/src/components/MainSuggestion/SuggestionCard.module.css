@@ -1,0 +1,11 @@
+.leftButton{
+    position: absolute;
+   left: 0%;
+   top: 35% 
+}
+
+.rightButton{
+    position: absolute;
+   right: 0%;
+   top: 35% 
+}
