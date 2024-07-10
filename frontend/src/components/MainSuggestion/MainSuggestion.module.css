@@ -2,5 +2,13 @@
     border: 1px solid grey;
     width : 70%;
     height: 99.5vh;
-    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardFooter{
+    border: 1px solid red;
+    background-color: azure;
+    height: 100%;
 }
