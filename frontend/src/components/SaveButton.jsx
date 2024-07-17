@@ -11,7 +11,7 @@ export default function SaveButton(props) {
           right: "1rem",
           bottom: "1rem",
         }}
-        type="submit"
+        type={props.type}
         onClick={props.onClick}
       >
         Save

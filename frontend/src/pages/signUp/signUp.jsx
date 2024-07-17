@@ -90,6 +90,7 @@ export default function SignUp() {
             variant="outlined"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
+              console.log(details)
             }}
           />
           <TextField
