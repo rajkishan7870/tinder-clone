@@ -1,0 +1,29 @@
+.parentDiv{
+    width: 90%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+
+.contentParent{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+}
+
+
+.content{
+    max-height: 30vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation{
+    height: 80% !important;
+}

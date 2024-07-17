@@ -6,10 +6,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
-import IconButton from '@mui/material/IconButton';
+import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-
+import axios from "axios";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -26,10 +26,27 @@ export default function SignUp() {
     navigate("/");
   }
 
-
   function handleSubmit(e) {
     e.preventDefault();
-    navigate("/login");
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const userData = {
+      name: details.name,
+      email: details.email,
+      password: details.password,
+      phone: details.phone,
+      DOB: details.DOB,
+    };
+    axios
+      .post("/api/user", userData, config)
+      .then((response) => {
+        console.log(response.status);
+      });
+    // navigate("/login");
   }
   return (
     <Dialog
@@ -46,11 +63,11 @@ export default function SignUp() {
       scroll="paper"
     >
       <DialogActions>
-      <IconButton
+        <IconButton
           aria-label="close"
           onClick={handleClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -122,6 +139,7 @@ export default function SignUp() {
             sx={{
               textTransform: "none",
             }}
+            onClick={handleSubmit}
           >
             Next
           </Button>

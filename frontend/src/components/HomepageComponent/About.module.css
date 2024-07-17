@@ -1,0 +1,30 @@
+.parentDiv{
+    width: 90%;
+    height: 70vh;
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: baseline;
+    justify-content: center;
+}
+
+
+.animation{
+    width: 100%;
+    border: 1px rgb(228, 234, 238) solid;
+    background-color: rgb(228, 234, 238);
+    margin: 1rem 1rem 1rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kishan{
+    font-weight: bold;
+}
