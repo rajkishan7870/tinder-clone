@@ -35,7 +35,7 @@ export default function ProfilePage() {
     console.log(profileDataFromAtom)
     
     axios
-      .post("/api/user", profileDataFromAtom, config)
+      .post("/api/profile", profileDataFromAtom, config)
       .then((response) => {
         console.log(response.status, profileDataFromAtom);
       });

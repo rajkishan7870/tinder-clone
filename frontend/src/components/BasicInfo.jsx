@@ -15,7 +15,7 @@ export default function BasicInfo() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setBasicinforecoil(basicinfo)
+    setBasicinforecoil({...basicinforecoil, ...basicinfo})
   }
   return (
     <div>

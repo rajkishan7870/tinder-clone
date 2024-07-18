@@ -77,7 +77,7 @@ export default function SignUp() {
         </IconButton>
       </DialogActions>
       <DialogContent>
-        <form onSubmit={handleSubmit} className={Style.root}>
+        <form className={Style.root}>
           <Typography
             variant="h4"
             sx={{ alignSelf: "center", fontWeight: "bold" }}

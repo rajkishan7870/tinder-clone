@@ -33,6 +33,23 @@ export default function Login() {
       setError("Enter your password first");
       return;
     }
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const userData = {
+      email: details.email,
+      password: details.password,
+    };
+    axios
+      .post("/api/login", userData, config)
+      .then((response) => {
+        console.log(response.status);
+      });
+      
+    navigate("/profile")
   }
   return (
     <div>
