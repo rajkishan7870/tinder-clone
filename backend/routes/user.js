@@ -7,6 +7,4 @@ router.get('/', getAllUsers)
   
 router.post("/", createNewUser);
 
-router.post('/api/login', verifyUser)
-
 module.exports = router;

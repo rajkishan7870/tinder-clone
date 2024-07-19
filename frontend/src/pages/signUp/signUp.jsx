@@ -46,7 +46,7 @@ export default function SignUp() {
       .then((response) => {
         console.log(response.status);
       });
-    // navigate("/login");
+    navigate("/login");
   }
   return (
     <Dialog

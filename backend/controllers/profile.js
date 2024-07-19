@@ -7,8 +7,14 @@ const createNewProfile = async (req, res)=> {
     profileStr = JSON.stringify(profile_data)
     console.log(profileStr)
     // await create_Faiss_DB([profileStr])
-    await profileModel.create(profile_data)
-    res.status(200).send({message: "New profile created",})
+    const profile = await profileModel.create({ ...profile_data, "createdBy": req.user._id })
+    if (profile) {
+        res.status(200).json(profile_data)
+    }
+    else {
+        res.status(401);
+        alert("Failed to create User");      
+    }    
 }
 
 module.exports = {createNewProfile}

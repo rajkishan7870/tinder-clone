@@ -1,6 +1,6 @@
 const UserModel = require("../models/user")
-const generateToken = require("../token/generateToken");
 const bcrypt = require("bcryptjs");
+const { setUser } = require("../service/auth");
 
 const getAllUsers = async (req, res) => {
     const allUser = await UserModel.find({})
@@ -38,7 +38,6 @@ const createNewUser = async (req, res) => {
             email: user.email,
             phone: user.phone,
             DOB: user.DOB,
-            token: generateToken(user._id),
         })
     }
     else {
@@ -55,11 +54,14 @@ const verifyUser = async (req, res) => {
     const matchPassword = await bcrypt.compare(password, user.password)
 
     if (user && matchPassword) { 
+        const token = setUser(user._id);
+        res.cookie("token", token)
+        
         res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            token : generateToken(user._id)
+            token : token,
         })
     }
     else {
