@@ -50,11 +50,11 @@ const verifyUser = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await UserModel.findOne({ email });
-
+    
     const matchPassword = await bcrypt.compare(password, user.password)
 
     if (user && matchPassword) { 
-        const token = setUser(user._id);
+        const token = setUser(user);
         res.cookie("token", token)
         
         res.status(201).json({
@@ -65,8 +65,7 @@ const verifyUser = async (req, res) => {
         })
     }
     else {
-        res.status(401);
-        alert("Invalid Email or password");
+        res.status(401).json({message: "Invalid Email or password"});
     }
 }
 

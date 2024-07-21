@@ -5,7 +5,7 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import Profileform from "../../components/Profileform";
@@ -18,7 +18,34 @@ export default function ProfilePage() {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
-  const profileDataFromAtom = useRecoilValue(profile_data)
+  const profileDataFromAtom = useRecoilValue(profile_data);
+
+  useEffect(() => {
+    let cookies = document.cookie;
+    if (!cookies) {
+      navigate("/login");
+      return
+    } else {
+      const token = cookies.split("token=")[1];
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.get("/api/profile", config).then((res) => {
+        console.log(res)
+      }).catch(err => {
+        const errorMessage = err.response.data.message
+        if (errorMessage == "Invalid or expired token") {
+          navigate("/login")
+        }
+        else {
+          navigate("/profile")
+        }
+      })
+    }
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -32,14 +59,12 @@ export default function ProfilePage() {
         "Content-type": "application/json",
       },
     };
-    console.log(profileDataFromAtom)
-    
-    axios
-      .post("/api/profile", profileDataFromAtom, config)
-      .then((response) => {
-        console.log(response.status, profileDataFromAtom);
-      });
-    navigate("/suggestion")
+    console.log(profileDataFromAtom);
+
+    axios.post("/api/profile", profileDataFromAtom, config).then((response) => {
+      console.log(response.status, profileDataFromAtom);
+    });
+    navigate("/suggestion");
   }
   function handleCancel(e) {
     e.preventDefault();

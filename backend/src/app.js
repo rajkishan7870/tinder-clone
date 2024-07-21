@@ -5,7 +5,7 @@ const connectDB = require("../db/conn");
 const userRouter = require("../routes/user");
 const profileRouter = require("../routes/profile");
 const loginRouter = require("../routes/login");
-const { restrictToLoggedinUserOnly } = require("../middlewares/auth");
+const { checkAuthForProfile } = require("../middlewares/auth");
 dotenv.config();
 connectDB();
 
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/user", userRouter)
-app.use("/api/profile",restrictToLoggedinUserOnly, profileRouter)
+app.use("/api/profile", checkAuthForProfile, profileRouter)
 app.use("/api/login", loginRouter)
 
 app.listen(port, () => {

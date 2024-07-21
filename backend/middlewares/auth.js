@@ -1,27 +1,21 @@
 const { getUser } = require("../service/auth");
 
-async function restrictToLoggedinUserOnly(req, res, next) {
-  const userToken = req.cookies?.token;
 
-  if (!userToken) return null;
-  const user = getUser(userToken);
-
-  if (!user) return null;
-
-  req.user = user;
-  next();
+async function checkAuthForProfile(req, res, next) {
+  const tokenFromCookies = req?.headers.authorization.split("Bearer ")[1]
+  const user = getUser(tokenFromCookies)
+  if (!user) {
+    res.status(401).json({
+      message: "Invalid or expired token"
+    });
+  }
+  else {
+    req.user = user;
+  }
+  next()
 }
 
-async function checkAuth(req, res, next) {
-  const userToken = req.cookies?.token;
-
-  const user = getUser(userToken);
-
-  req.user = user;
-  next();
-}
 
 module.exports = {
-  restrictToLoggedinUserOnly,
-  checkAuth,
+  checkAuthForProfile,
 };

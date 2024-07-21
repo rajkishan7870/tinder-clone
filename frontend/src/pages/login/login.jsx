@@ -46,8 +46,12 @@ export default function Login() {
     };
     axios
       .post("/api/login", userData, config)
-      .then((response) => {
-        console.log(response.status);
+      .then((res) => {
+        if (res.data.token) {
+          navigate("/profile")
+        }
+      }).catch(err => {
+      console.log(err)
       });
       
     navigate("/profile")
