@@ -20,6 +20,7 @@ export default function MainSuggestion() {
       }}>
         <SuggestionCard />
         <div className={style.cardFooter}>
+        <div>Kishan Kumar</div>
           <CardActions sx={{
             display: "flex",
             flexDirection: "row",

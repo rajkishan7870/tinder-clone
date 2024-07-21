@@ -1,47 +1,77 @@
-import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import { React, useState, useRef } from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import style from "./AddImage.module.css"
 
 export default function AddImage() {
+
+  const [pic, setPic] = useState("");
+  const fileInputRef = useRef(null);
+
+
+  const getCloudinaryImageUrl = (pics) => {
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "Wemate");
+      data.append("cloud_name", "dztdf6qvw");
+      fetch("https://api.cloudinary.com/v1_1/dztdf6qvw/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const uploaded_url = data.url.toString()
+          return uploaded_url;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+  const handleFileChange = async () => {
+    const file = fileInputRef.current.files[0];
+    if (!file) return;
+    try {
+      const imageUrl = await getCloudinaryImageUrl(file);
+      setPic(imageUrl)
+      console.log(imageUrl)
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
   return (
-    <ImageList sx={{ width: 500, height: 450 }} variant="woven" cols={3} gap={8}>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-            src={`${item.img}?w=161&fit=crop&auto=format`}
-            alt={item.title}
-            loading="lazy"
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
+    <>
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+      <ImageList
+        sx={{ width: 500, height: 450 }}
+        variant="woven"
+        cols={3}
+        gap={8}
+      >
+        {itemData.map((item) => (
+          <ImageListItem key={item.img}>
+            <img
+              srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.img}?w=161&fit=crop&auto=format`}
+              alt={item.title}
+              loading="lazy"
+              className={style.image}
+              onClick={()=> fileInputRef.current.click()}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </>
   );
 }
 
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
-    title: 'Bed',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-    title: 'Kitchen',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-    title: 'Sink',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-    title: 'Books',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
-    title: 'Chairs',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-    title: 'Candle',
-  }
-];
+const itemData = Array.from({ length: 6 }, (_, index) => ({
+  img: "https://t3.ftcdn.net/jpg/04/28/36/88/360_F_428368831_UVan10UgxCCnYgJgFMNoV2xGy7pO8utS.jpg",
+  title: "Bed",
+}));

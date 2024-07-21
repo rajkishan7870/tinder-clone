@@ -10,5 +10,8 @@
 .cardFooter{
     border: 1px solid red;
     background-color: azure;
-    height: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
