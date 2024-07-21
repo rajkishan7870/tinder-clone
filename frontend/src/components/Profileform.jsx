@@ -1,10 +1,8 @@
-import * as React from "react";
+import {React, useEffect} from "react";
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Button from "@mui/material/Button";
 import Education from "./Education";
 import BasicInfo from "./BasicInfo";
 import Location from "./Location";
@@ -14,6 +12,7 @@ import Relegion from "./Relegion";
 import OtherInformation from "./OtherInformation";
 
 export default function AccordionUsage() {
+
   return (
     <div>
       <Accordion defaultExpanded>

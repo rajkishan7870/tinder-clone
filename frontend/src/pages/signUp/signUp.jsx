@@ -46,7 +46,7 @@ export default function SignUp() {
       .then((response) => {
         console.log(response.status);
       });
-    // navigate("/login");
+    navigate("/login");
   }
   return (
     <Dialog
@@ -77,7 +77,7 @@ export default function SignUp() {
         </IconButton>
       </DialogActions>
       <DialogContent>
-        <form onSubmit={handleSubmit} className={Style.root}>
+        <form className={Style.root}>
           <Typography
             variant="h4"
             sx={{ alignSelf: "center", fontWeight: "bold" }}
@@ -90,6 +90,7 @@ export default function SignUp() {
             variant="outlined"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
+              console.log(details)
             }}
           />
           <TextField

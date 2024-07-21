@@ -11,8 +11,15 @@
   "author": "kishan kumar",
   "license": "ISC",
   "dependencies": {
+    "@langchain/community": "^0.2.19",
+    "@langchain/openai": "^0.2.4",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "faiss": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "langchain": "^0.2.10",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.0"
   }

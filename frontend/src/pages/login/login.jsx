@@ -11,6 +11,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
+import axios from 'axios'
 export default function Login() {
   const [open, setOpen] = useState(true);
   const [details, setDetails] = useState({ email: "", password: "" });
@@ -33,6 +34,27 @@ export default function Login() {
       setError("Enter your password first");
       return;
     }
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const userData = {
+      email: details.email,
+      password: details.password,
+    };
+    axios
+      .post("/api/login", userData, config)
+      .then((res) => {
+        if (res.data.token) {
+          navigate("/profile")
+        }
+      }).catch(err => {
+      console.log(err)
+      });
+      
+    navigate("/profile")
   }
   return (
     <div>
