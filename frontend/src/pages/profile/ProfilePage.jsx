@@ -24,26 +24,47 @@ export default function ProfilePage() {
     let cookies = document.cookie;
     if (!cookies) {
       navigate("/login");
-      return
+      return;
     } else {
       const token = cookies.split("token=")[1];
+      console.log(token);
       const config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
-      axios.get("/api/profile", config).then((res) => {
-        console.log(res)
-      }).catch(err => {
-        const errorMessage = err.response.data.message
-        if (errorMessage == "Invalid or expired token") {
-          navigate("/login")
-        }
-        else {
-          navigate("/profile")
-        }
-      })
+
+      axios
+        .get("/api/suggestion", config)
+        .then((res) => {
+          const gender = res.data.gender;
+          if (gender) {
+            navigate("/suggestion");
+          } else {
+            navigate("/profile");
+          }
+        })
+        .catch((err) => {
+          const errorMessage = err.response.data.message;
+          if (errorMessage === "Invalid or expired token") {
+            navigate("/login");
+          }
+        });
+
+      axios
+        .get("/api/profile", config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          const errorMessage = err.response.data.message;
+          if (errorMessage === "Invalid or expired token") {
+            navigate("/login");
+          } else {
+            navigate("/profile");
+          }
+        });
     }
   }, []);
 
