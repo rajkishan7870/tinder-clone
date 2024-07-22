@@ -22,7 +22,8 @@ export default function AddImage() {
         .then((res) => res.json())
         .then((data) => {
           const uploaded_url = data.url.toString()
-          return uploaded_url;
+          console.log(uploaded_url)
+          setPic(uploaded_url);
         })
         .catch((err) => {
           console.log(err);
@@ -33,9 +34,7 @@ export default function AddImage() {
     const file = fileInputRef.current.files[0];
     if (!file) return;
     try {
-      const imageUrl = await getCloudinaryImageUrl(file);
-      setPic(imageUrl)
-      console.log(imageUrl)
+      getCloudinaryImageUrl(file);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
