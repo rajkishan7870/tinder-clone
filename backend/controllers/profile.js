@@ -38,4 +38,10 @@ const checkAuthentication = async (req, res) => {
   }
 };
 
-module.exports = { createNewProfile, checkAuthentication };
+const returnImageUrl = async (req, res) => {
+  console.log(req?.file)
+
+  res.status(201).json({message: "Done loading"})
+}
+
+module.exports = { createNewProfile, checkAuthentication, returnImageUrl };

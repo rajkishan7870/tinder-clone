@@ -1,9 +1,10 @@
-import * as React from 'react';
+import {React, useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import SentLike from './SentLike';
+import axios from 'axios'
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -35,8 +36,22 @@ function a11yProps(index) {
 }
 
 export default function MultipleTab() {
-    const [value, setValue] = React.useState(0);
-    
+  const [value, setValue] = useState(0);
+  
+  useEffect(() => {
+    const cookies = document.cookie
+    const token = cookies.split("token=")[1];
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios.get("/api/interaction/matchreq", config).then((res) => {
+      console.log(res);
+      // profile data coming in response from backend
+    }).catch(err=> console.log(err))
+  }, [])
 
   const handleChange = (event, newValue) => {
       setValue(newValue);

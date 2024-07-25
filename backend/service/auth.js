@@ -22,7 +22,15 @@ function getUser(token) {
   }
 }
 
+function checkForSameDay(eventTime) {
+  const today = new Date().toISOString().split("T")[0];
+  const eventDate = new Date(eventTime).toISOString().split("T")[0];
+
+  return eventDate === today ? true : false;
+}
+
 module.exports = {
   setUser,
   getUser,
+  checkForSameDay,
 };
