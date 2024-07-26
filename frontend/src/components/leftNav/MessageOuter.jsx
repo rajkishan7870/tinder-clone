@@ -3,10 +3,11 @@ import style from "./MatchingReq.module.css";
 
 export default function MessageOuter() {
     const [matchingAccept, setMatchingAccept] = useState()
-    const arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    
     useEffect(() => {
+        const arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
         setMatchingAccept(arr)
-    })
+    }, [])
   return (
     <div className={style.parentDiv}>
       {matchingAccept &&
