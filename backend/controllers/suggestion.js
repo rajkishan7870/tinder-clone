@@ -1,7 +1,6 @@
 const ProfileModel = require('../models/profile');
 
 const checkForSuggestion = async (req, res) => {
-    console.log(req)
     const id = req.user._id
     const profileData = await ProfileModel.findOne({createdBy : id});
     console.log(profileData)

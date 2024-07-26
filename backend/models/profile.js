@@ -14,6 +14,11 @@ const profileSchema = new mongoose.Schema(
     zodiac: { type: String },
     drinking_type: { type: String },
     smoking_type: { type: String },
+    liked_to: { type: Array },
+    disliked_to: { type: Array },
+    liked_from: { type: Array },
+    disliked_from: { type: Array },
+    matched_with: { type: Array },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",

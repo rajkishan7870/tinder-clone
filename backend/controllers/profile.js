@@ -10,6 +10,11 @@ const createNewProfile = async (req, res) => {
   // await create_Faiss_DB([profileStr])
   const profile = await profileModel.create({
     ...profile_data,
+    liked_to: [],
+    disliked_to: [],
+    liked_from: [],
+    disliked_from: [],
+    matched_with: [],
     createdBy: req.user._id,
   });
   if (profile) {
