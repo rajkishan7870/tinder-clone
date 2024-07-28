@@ -10,6 +10,11 @@ const createNewProfile = async (req, res) => {
   // await create_Faiss_DB([profileStr])
   const profile = await profileModel.create({
     ...profile_data,
+    liked_to: [],
+    disliked_to: [],
+    liked_from: [],
+    disliked_from: [],
+    matched_with: [],
     createdBy: req.user._id,
   });
   if (profile) {
@@ -38,4 +43,10 @@ const checkAuthentication = async (req, res) => {
   }
 };
 
-module.exports = { createNewProfile, checkAuthentication };
+const returnImageUrl = async (req, res) => {
+  console.log(req?.file)
+
+  res.status(201).json({message: "Done loading"})
+}
+
+module.exports = { createNewProfile, checkAuthentication, returnImageUrl };

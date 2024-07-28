@@ -1,47 +1,87 @@
-import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import { React, useState, useRef } from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import style from "./AddImage.module.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddImage() {
+  const [pic, setPic] = useState("");
+  const fileInputRef = useRef([]);
+  const navigate = useNavigate();
+
+  const getImageUrl = (pics) => {
+    let cookies = document.cookie;
+    if (cookies) {
+      var token = cookies.split("token=")[1];
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const imageData = new FormData();
+      imageData.append("image", pics);
+      console.log("Image: ", imageData.get("image"))
+      axios
+        .post("/api/profile/image", imageData, config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleImage = (index) => {
+    if (fileInputRef.current[index]) {
+      fileInputRef.current[index].click();
+    }
+  }
+
+  const handleFileChange = async (e, index) => {
+    const file = e.target.files[0];
+    console.log(file)
+    if (!file) return;
+    getImageUrl(file); 
+  };
+
   return (
-    <ImageList sx={{ width: 500, height: 450 }} variant="woven" cols={3} gap={8}>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-            src={`${item.img}?w=161&fit=crop&auto=format`}
-            alt={item.title}
-            loading="lazy"
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
+    <>
+      <ImageList
+        sx={{ width: 500, height: 450 }}
+        variant="woven"
+        cols={3}
+        gap={8}
+      >
+        {itemData.map((item, index) => (
+          <form enctype="multipart/form-data" key={index}>
+            <ImageListItem >
+              <img
+                srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
+                src={`${item.img}?w=161&fit=crop&auto=format`}
+                alt={item.title}
+                loading="lazy"
+                className={style.image}
+                onClick={()=>handleImage(index)}
+                />
+              <input
+                type="file"
+                name="image"
+                ref={(el) => (fileInputRef.current[index] = el)}
+                style={{ display: "none" }}
+                onChange={(e)=>handleFileChange(e, index)}
+              />
+            </ImageListItem>
+          </form>
+        ))}
+      </ImageList>
+    </>
   );
 }
 
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
-    title: 'Bed',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-    title: 'Kitchen',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-    title: 'Sink',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-    title: 'Books',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
-    title: 'Chairs',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-    title: 'Candle',
-  }
-];
+const itemData = Array.from({ length: 6 }, (_, index) => ({
+  img: "https://t3.ftcdn.net/jpg/04/28/36/88/360_F_428368831_UVan10UgxCCnYgJgFMNoV2xGy7pO8utS.jpg",
+  title: "Bed",
+}));

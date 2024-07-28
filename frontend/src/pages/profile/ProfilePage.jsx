@@ -19,31 +19,53 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   const profileDataFromAtom = useRecoilValue(profile_data);
+  let cookies = document.cookie;
+  const token = cookies.split("token=")[1];
 
   useEffect(() => {
-    let cookies = document.cookie;
+
     if (!cookies) {
       navigate("/login");
-      return
+      return;
     } else {
-      const token = cookies.split("token=")[1];
       const config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
-      axios.get("/api/profile", config).then((res) => {
-        console.log(res)
-      }).catch(err => {
-        const errorMessage = err.response.data.message
-        if (errorMessage == "Invalid or expired token") {
-          navigate("/login")
-        }
-        else {
-          navigate("/profile")
-        }
-      })
+
+      // axios
+      //   .get("/api/suggestion", config)
+      //   .then((res) => {
+      //     console.log(res)
+      //     const gender = res.data.gender;
+      //     if (gender) {
+      //       navigate("/suggestion");
+      //     } else {
+      //       navigate("/profile");
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     const errorMessage = err.response.data.message;
+      //     if (errorMessage === "Invalid or expired token") {
+      //       navigate("/login");
+      //     }
+      //   });
+
+      axios
+        .get("/api/profile", config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          const errorMessage = err.response.data.message;
+          if (errorMessage === "Invalid or expired token") {
+            navigate("/login");
+          } else {
+            navigate("/profile");
+          }
+        });
     }
   }, []);
 
@@ -57,6 +79,7 @@ export default function ProfilePage() {
     const config = {
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
     console.log(profileDataFromAtom);

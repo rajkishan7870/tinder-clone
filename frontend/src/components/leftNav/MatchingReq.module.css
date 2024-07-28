@@ -1,0 +1,65 @@
+.parenteleDiv{
+    width: 100%;
+    height: 5rem;
+    border: 1px solid red;
+    background-color: rgb(230, 212, 223);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.parentDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.eleDiv1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 1rem;
+}
+
+.eleDiv2{
+    display: flex;
+    flex-direction: row;
+    padding-right: 2rem;
+    gap: 1rem;
+}
+
+.reject{
+    border: 1px red;
+    border-radius: 50%;
+    padding: 1rem;
+    transition:  0.6s ease-out;
+}
+
+.reject:hover{
+    background-color: #ffcccc;
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+.accept{
+    border: 1px red;
+    border-radius: 50%;
+    padding: 1rem;
+    transition:  0.6s ease-out;
+}
+
+.accept:hover {
+    background-color: #ffcccc;
+    cursor: pointer;
+    transform: rotate(360deg);
+}
+
+.image{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
