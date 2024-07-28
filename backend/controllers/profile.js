@@ -25,6 +25,23 @@ const createNewProfile = async (req, res) => {
   }
 };
 
+const getProfile = async(req, res)=>{
+  const email = req.user.email;
+  const profiles = await profileModel.find({}).populate({
+    path: "createdBy",
+    model: "User",
+  });
+
+  const profileData = profiles.find(
+    (profile) => profile.createdBy.email === email
+  );
+  if (profileData){
+    res.status(201).json(profileData)
+  }else{
+    res.status(201).json({message: "No Profile Data Present"})
+  } 
+}
+
 const checkAuthentication = async (req, res) => {
   const id = req.user._id;
     const profileData = await UserModel.findOne({ _id: id });
@@ -49,4 +66,4 @@ const returnImageUrl = async (req, res) => {
   res.status(201).json({message: "Done loading"})
 }
 
-module.exports = { createNewProfile, checkAuthentication, returnImageUrl };
+module.exports = { createNewProfile, getProfile, checkAuthentication, returnImageUrl };

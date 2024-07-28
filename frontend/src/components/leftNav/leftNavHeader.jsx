@@ -1,61 +1,69 @@
-import * as React from "react";
+import { React, useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Button } from "@mui/material";
+import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Dashboard", "Logout"];
 
 function LeftNavHeader() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [profile, setProfile] = useState();
+  const navigate = useNavigate()
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  useEffect(() => {
+    const cookies = document.cookie;
+    const token = cookies.split("token=")[1];
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get("/api/profile/getprofile", config)
+      .then((res) => {
+        setProfile(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (menu) => {
+    if (menu === "Profile"){
+      navigate("/profile")
+    }
+    else if (menu === "Dashboard"){
+      navigate("")
+    }
+    else{
+      navigate("/")
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    }
     setAnchorElUser(null);
   };
 
   return (
-    <AppBar position="static" sx={{backgroundColor: "pink"}}>
+    <AppBar position="static" sx={{ backgroundColor: "pink" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Kishan Kumar" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Kishan Kumar" src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -72,10 +80,13 @@ function LeftNavHeader() {
                 horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              // onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={() => handleCloseUserMenu(setting)}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -87,8 +98,7 @@ function LeftNavHeader() {
               leftMargin: "20px",
             }}
           >
-            {" "}
-            Kishan Kumar
+            {profile?.createdBy.name}
           </Button>
         </Toolbar>
       </Container>

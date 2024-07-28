@@ -47,14 +47,17 @@ export default function Login() {
     axios
       .post("/api/login", userData, config)
       .then((res) => {
-        if (res.data.token) {
+        console.log(res.data.message)
+        if(res.data.message === "Invalid Email or password"){
+          setError("Invalid Email or password")
+          return
+        }
+        else if (res.data.token) {
           navigate("/profile")
         }
       }).catch(err => {
       console.log(err)
       });
-      
-    navigate("/profile")
   }
   return (
     <div>

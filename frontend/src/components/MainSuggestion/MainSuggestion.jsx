@@ -21,7 +21,7 @@ export default function MainSuggestion() {
       },
     };
     const toDisLikeData = {
-      disliked_to: "mahi@gmail.com",
+      disliked_to: "sona@gmail.com",
     };
 
     axios
@@ -39,7 +39,7 @@ export default function MainSuggestion() {
       },
     };
     const toLikeData = {
-      liked_to: "mahi@gmail.com",
+      liked_to: "sona@gmail.com",
     };
 
     axios

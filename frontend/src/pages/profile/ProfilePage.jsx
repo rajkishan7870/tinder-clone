@@ -35,23 +35,23 @@ export default function ProfilePage() {
         },
       };
 
-      // axios
-      //   .get("/api/suggestion", config)
-      //   .then((res) => {
-      //     console.log(res)
-      //     const gender = res.data.gender;
-      //     if (gender) {
-      //       navigate("/suggestion");
-      //     } else {
-      //       navigate("/profile");
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     const errorMessage = err.response.data.message;
-      //     if (errorMessage === "Invalid or expired token") {
-      //       navigate("/login");
-      //     }
-      //   });
+      axios
+        .get("/api/suggestion", config)
+        .then((res) => {
+          console.log(res)
+          const gender = res.data.gender;
+          if (gender) {
+            navigate("/suggestion");
+          } else {
+            navigate("/profile");
+          }
+        })
+        .catch((err) => {
+          const errorMessage = err.response.data.message;
+          if (errorMessage === "Invalid or expired token") {
+            navigate("/login");
+          }
+        });
 
       axios
         .get("/api/profile", config)

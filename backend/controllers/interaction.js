@@ -1,8 +1,6 @@
 const interactionModel = require("../models/interaction");
 const profileModel = require("../models/profile");
-const UserModel = require("../models/user");
 const { checkForSameDay } = require("../service/auth");
-const { profileDataBylike } = require("../service/profile");
 
 const newLikeInteraction = async (req, res) => {
   console.log(req.user.email);
