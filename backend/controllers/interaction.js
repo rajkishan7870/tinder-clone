@@ -147,9 +147,94 @@ const allMatchRequest = async (req, res) => {
   }
 };
 
+const matchAccept = async (req, res) => {
+  console.log(req.body);
+
+  const profiles = await profileModel
+    .find()
+    .populate({ path: "createdBy", model: "User" });
+
+  const userProfile = profiles.find(
+    (profile) => profile.createdBy.email === req.user.email
+  );
+
+  await profileModel.findByIdAndUpdate(
+    { _id: userProfile._id },
+    {
+      $push: { matched_with: req.body.email },
+      $pull: { liked_from: req.body.email },
+    }
+  );
+
+  await profileModel.findByIdAndUpdate(
+    { _id: req.body._id },
+    {
+      $push: { matched_with: req.user.email },
+      $pull: { liked_to: req.user.email },
+    }
+  );
+
+  const interactionData = {
+    matched_by: req.user.email,
+    matched_with: req.body.email,
+    matched: true,
+    interactedBy: req.user._id,
+  };
+
+  const interaction = await interactionModel.create(interactionData);
+  if (interaction) {
+    res.status(200).json(interactionData);
+  } else {
+    res.status(401).json("Interaction not created");
+  }
+};
+
+const matchReject = async (req, res) => {
+  console.log(req.body);
+
+  const profiles = await profileModel
+    .find()
+    .populate({ path: "createdBy", model: "User" });
+
+  const userProfile = profiles.find(
+    (profile) => profile.createdBy.email === req.user.email
+  );
+
+  await profileModel.findByIdAndUpdate(
+    { _id: userProfile._id },
+    {
+      $push: { match_reject_for: req.body.email },
+      $pull: { liked_from: req.body.email },
+    }
+  );
+
+  await profileModel.findByIdAndUpdate(
+    { _id: req.body._id },
+    {
+      $push: { match_reject_by: req.user.email },
+      $pull: { liked_to: req.user.email },
+    }
+  );
+
+  const interactionData = {
+    match_rejected_by: req.user.email,
+    match_rejected_for: req.body.email,
+    matched: false,
+    interactedBy: req.user._id,
+  };
+  const interaction = await interactionModel.create(interactionData);
+  if (interaction) {
+    res.status(200).json(interactionData);
+  } else {
+    res.status(401).json("Interaction not created");
+  }
+};
+
 module.exports = {
   newLikeInteraction,
   newDislikeInteraction,
   allLikeInteraction,
   allMatchRequest,
+  matchAccept,
+  matchReject,
 };

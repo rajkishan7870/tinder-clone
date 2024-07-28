@@ -15,6 +15,8 @@ const createNewProfile = async (req, res) => {
     liked_from: [],
     disliked_from: [],
     matched_with: [],
+    match_reject_for: [],
+    match_reject_by: [],
     createdBy: req.user._id,
   });
   if (profile) {
