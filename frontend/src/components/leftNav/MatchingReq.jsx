@@ -3,10 +3,10 @@ import style from "./MatchingReq.module.css";
 import { GoCheck } from "react-icons/go";
 import axios from 'axios'
 
-export default function MatchingReq(props) {
+export default function MatchingReq() {
   const [matchingReq, setMatchingReq] = useState();
-  const matchingReqData = props.matchingReqData;
-  console.log(matchingReqData);
+  const [trigger, setTrigger] = useState(false);
+  
   const cookie = document.cookie
   const token = cookie.split("token=")[1]
 
@@ -17,8 +17,15 @@ export default function MatchingReq(props) {
   }
 
   useEffect(() => {
-    setMatchingReq(matchingReqData);
-  }, []);
+    axios
+      .get("/api/interaction/matchreq", config)
+      .then((res) => {
+        const matchingReqData = res.data;
+        console.log(matchingReqData)
+        setMatchingReq(matchingReqData);    
+      })
+      .catch((err) => console.log(err));
+  }, [trigger]);
 
   const handleAccept = (profile) =>{
     const data = {
@@ -28,7 +35,10 @@ export default function MatchingReq(props) {
     axios
       .post("/api/interaction/accept", data, config)
       .then((res)=>{
-        console.log(res)
+        if (res.data){
+          console.log(res)
+          setTrigger(!trigger);
+        } 
       })
       .catch(err=>console.log(err))
   }
@@ -41,7 +51,10 @@ export default function MatchingReq(props) {
     axios
       .post("/api/interaction/reject", data, config)
       .then((res)=>{
-        console.log(res)
+        if (res.data){
+          console.log(res)
+          setTrigger(!trigger);
+        } 
       })
       .catch(err=>console.log(err))
   }
