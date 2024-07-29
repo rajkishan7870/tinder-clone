@@ -9,10 +9,12 @@ export default function OtherInformation() {
     drinking_type: "",
     smoking_type: ""
   })
+  const [clickCount, setClickCount] = useState(0)
   const [otherinformationrecoil, setOtherinformationrecoil] = useRecoilState(profile_data)
     function handleSubmit(e) {
       e.preventDefault()
       setOtherinformationrecoil({...otherinformationrecoil, ...otherinformation})
+      setClickCount(1)
     }
   return (
       <div>
@@ -33,7 +35,7 @@ export default function OtherInformation() {
                   setOtherinformation({...otherinformation, "smoking_type": e.target.value})
                 }}
               />
-              <SaveButton type="submit" onClick={ handleSubmit} />
+              <SaveButton type="submit" onClick={ handleSubmit} clickCount = {clickCount} />
           </form>
     </div>
   )

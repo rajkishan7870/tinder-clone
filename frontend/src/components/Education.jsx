@@ -9,11 +9,13 @@ export default function Education() {
   const [education, setEducation] = useState({
     college: "",
   })
+  const [clickCount, setClickCount] = useState(0)
   const [educationrecoil, setEducationrecoil] = useRecoilState(profile_data)
 
   function handleSubmit(e) {
     e.preventDefault();
     setEducationrecoil({ ...educationrecoil, ...education })
+    setClickCount(1)
   }
 
   return (
@@ -27,7 +29,7 @@ export default function Education() {
             setEducation({ ...education, "college": e.target.value });
           }}
         />
-        <SaveButton type="submit" onClick={handleSubmit} />
+        <SaveButton type="submit" onClick={handleSubmit} clickCount= {clickCount} />
       </form>
     </div>
   );

@@ -19,6 +19,8 @@ const profileSchema = new mongoose.Schema(
     liked_from: { type: Array },
     disliked_from: { type: Array },
     matched_with: { type: Array },
+    match_reject_for: {type: Array},
+    match_reject_by: {type: Array},
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",

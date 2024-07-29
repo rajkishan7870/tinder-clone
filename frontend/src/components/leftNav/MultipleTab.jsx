@@ -1,10 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import SentLike from "./SentLike";
-import axios from "axios";
 import MatchingReq from "./MatchingReq";
 import style from "./MultipleTab.module.css"
 import MessageOuter from "./MessageOuter";
@@ -40,25 +39,7 @@ function a11yProps(index) {
 
 export default function MultipleTab() {
   const [value, setValue] = useState(0);
-  const [matchreq, setMatchreq] = useState()
 
-  useEffect(() => {
-    const cookies = document.cookie;
-    const token = cookies.split("token=")[1];
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios
-      .get("/api/interaction/matchreq", config)
-      .then((res) => {
-        const matchingReqData = res.data;
-        setMatchreq(matchingReqData);    
-      })
-      .catch((err) => console.log(err));
-  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,7 +61,7 @@ export default function MultipleTab() {
       <CustomTabPanel value={value} index={0}>
         <div className={style.parent1st}>
           <SentLike />
-          <MatchingReq matchingReqData={matchreq} />
+          <MatchingReq />
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>

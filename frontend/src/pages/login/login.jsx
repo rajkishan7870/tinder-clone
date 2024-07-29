@@ -47,14 +47,17 @@ export default function Login() {
     axios
       .post("/api/login", userData, config)
       .then((res) => {
-        if (res.data.token) {
+        console.log(res.data.token)
+        if(res.data.message === "Invalid Email or password"){
+          setError("Invalid Email or password")
+          return
+        }
+        else if (res.data.token) {
           navigate("/profile")
         }
       }).catch(err => {
       console.log(err)
       });
-      
-    navigate("/profile")
   }
   return (
     <div>
@@ -62,7 +65,7 @@ export default function Login() {
         open={open}
         PaperProps={{
           sx: {
-            height: "80%",
+            height: "90vh",
             padding: "0rem 1rem 1rem 1rem",
             borderRadius: "1.5rem",
             minWidth: "40%",

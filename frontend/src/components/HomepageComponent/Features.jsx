@@ -6,7 +6,7 @@ import DatingAnimation from "./DatingAnimation";
 
 export default function Features() {
   return (
-    <div className={style.parentDiv}>
+    <div id="features" className={style.parentDiv}>
       <h2>Features and Benefits</h2>
       <div className={style.contentParent}>
         <div className={style.content}>

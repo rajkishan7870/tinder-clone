@@ -7,6 +7,7 @@ import SuggestionPage from './pages/suggestion/SuggestionPage';
 import './App.css';
 
 function App() {
+
   return (
     <div className="App">
       <Routes>
