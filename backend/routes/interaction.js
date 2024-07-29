@@ -7,6 +7,6 @@ router.post("/dislike", newDislikeInteraction)
 router.get("/alllike", allLikeInteraction)
 router.get("/matchreq", allMatchRequest)
 router.post("/accept", matchAccept)
-router.post("reject", matchReject)
+router.post("/reject", matchReject)
 
 module.exports = router;
