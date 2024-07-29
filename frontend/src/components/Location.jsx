@@ -8,10 +8,12 @@ export default function Location() {
   const [location, setLocation] = useState({
     location: "",
   })
+  const [clickCount, setClickCount] = useState(0)
   const [locationrecoil, setLocationrecoil] = useRecoilState(profile_data)
   function handleSubmit(e) {
     e.preventDefault();
     setLocationrecoil({...locationrecoil, ...location})
+    setClickCount(1)
   }
   return (
     <div>
@@ -24,7 +26,7 @@ export default function Location() {
             setLocation({...location, "location": e.target.value})
           }}
         />
-        <SaveButton type="submit" onClick={handleSubmit} />
+        <SaveButton type="submit" onClick={handleSubmit} clickCount = {clickCount} />
       </form>
     </div>
   );

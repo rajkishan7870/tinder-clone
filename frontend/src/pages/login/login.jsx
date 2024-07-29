@@ -47,7 +47,7 @@ export default function Login() {
     axios
       .post("/api/login", userData, config)
       .then((res) => {
-        console.log(res.data.message)
+        console.log(res.data.token)
         if(res.data.message === "Invalid Email or password"){
           setError("Invalid Email or password")
           return

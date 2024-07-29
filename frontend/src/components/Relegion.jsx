@@ -10,9 +10,11 @@ export default function Relegion() {
     zodiac: "",
   })
   const[relegionrecoil, setRelegionrecoil] = useRecoilState(profile_data)
+  const [clickCount, setClickCount] = useState(0)
   function handleSubmit(e) {
     e.preventDefault();
     setRelegionrecoil({...relegionrecoil, ...relegion})
+    setClickCount(1)
   }
 
   return (
@@ -34,7 +36,7 @@ export default function Relegion() {
             setRelegion({...relegion, "zodiac": e.target.value})
           }}
         />
-        <SaveButton type="submit" onClick={handleSubmit} />
+        <SaveButton type="submit" onClick={handleSubmit} clickCount = {clickCount}/>
       </form>
     </div>
   );

@@ -14,7 +14,7 @@ export default function SaveButton(props) {
         type={props.type}
         onClick={props.onClick}
       >
-        Save
+        {props.clickCount === 1? "Saved" : "Save"}
       </Button>
     </div>
   );

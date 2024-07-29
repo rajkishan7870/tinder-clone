@@ -23,7 +23,6 @@ export default function ProfilePage() {
   const token = cookies.split("token=")[1];
 
   useEffect(() => {
-
     if (!cookies) {
       navigate("/login");
       return;
@@ -38,32 +37,20 @@ export default function ProfilePage() {
       axios
         .get("/api/suggestion", config)
         .then((res) => {
-          console.log(res)
-          const gender = res.data.gender;
-          if (gender) {
-            navigate("/suggestion");
-          } else {
-            navigate("/profile");
-          }
-        })
-        .catch((err) => {
-          const errorMessage = err.response.data.message;
-          if (errorMessage === "Invalid or expired token") {
-            navigate("/login");
-          }
-        });
-
-      axios
-        .get("/api/profile", config)
-        .then((res) => {
           console.log(res);
+          if (res.data.gender) {
+            navigate("/suggestion");
+            return
+          }
+          else if (res.data.message === "Navigate to Profile") {
+            navigate("/profile");
+            return
+          }
         })
         .catch((err) => {
-          const errorMessage = err.response.data.message;
-          if (errorMessage === "Invalid or expired token") {
+          console.log(err);
+          if (err.response.data.message === "Invalid or expired token") {
             navigate("/login");
-          } else {
-            navigate("/profile");
           }
         });
     }
@@ -84,10 +71,14 @@ export default function ProfilePage() {
     };
     console.log(profileDataFromAtom);
 
-    axios.post("/api/profile", profileDataFromAtom, config).then((response) => {
-      console.log(response.status, profileDataFromAtom);
-    });
-    navigate("/suggestion");
+    axios
+      .post("/api/profile", profileDataFromAtom, config)
+      .then((response) => {
+        if (response.data) {
+          navigate("/suggestion");
+        }
+      })
+      .catch((err) => console.log(err));
   }
   function handleCancel(e) {
     e.preventDefault();

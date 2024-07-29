@@ -12,10 +12,12 @@ export default function BasicInfo() {
     height: "",
   });
   const [basicinforecoil, setBasicinforecoil] = useRecoilState(profile_data)
+  const [clickCount, setClickCount] = useState(0)
 
   function handleSubmit(e) {
     e.preventDefault();
     setBasicinforecoil({...basicinforecoil, ...basicinfo})
+    setClickCount(1)
   }
   return (
     <div>
@@ -53,7 +55,7 @@ export default function BasicInfo() {
           }}
         />
 
-        <SaveButton type= "submit" onClick={handleSubmit} />
+        <SaveButton type= "submit" onClick={handleSubmit} clickCount = {clickCount} />
       </form>
     </div>
   );
