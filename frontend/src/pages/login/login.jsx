@@ -65,7 +65,7 @@ export default function Login() {
         open={open}
         PaperProps={{
           sx: {
-            height: "80%",
+            height: "90vh",
             padding: "0rem 1rem 1rem 1rem",
             borderRadius: "1.5rem",
             minWidth: "40%",

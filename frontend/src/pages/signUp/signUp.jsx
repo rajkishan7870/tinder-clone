@@ -53,7 +53,7 @@ export default function SignUp() {
       open={open}
       PaperProps={{
         sx: {
-          height: "85%",
+          height: "90vh",
           padding: "0rem 1rem 1rem 1rem",
           borderRadius: "1.5rem",
           minWidth: "40%",
@@ -88,9 +88,14 @@ export default function SignUp() {
             label="Name"
             name="name"
             variant="outlined"
+            size="small"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
               console.log(details)
+            }}
+            sx={{
+              width: "60%",
+              alignSelf: "center",
             }}
           />
           <TextField
@@ -98,8 +103,13 @@ export default function SignUp() {
             type="email"
             label="Email"
             variant="outlined"
+            size="small"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
+            }}
+            sx={{
+              width: "60%",
+              alignSelf: "center",
             }}
           />
           <TextField
@@ -107,8 +117,13 @@ export default function SignUp() {
             type="password"
             label="Password"
             variant="outlined"
+            size="small"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
+            }}
+            sx={{
+              width: "60%",
+              alignSelf: "center",
             }}
           />
           <TextField
@@ -116,12 +131,18 @@ export default function SignUp() {
             name="phone"
             type="number"
             variant="outlined"
+            size="small"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
             }}
+            sx={{
+              width: "60%",
+              alignSelf: "center",
+            }}
           />
+          <div>
           <Typography variant="caption">
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold", marginLeft: "30%" }}>
               Date of birth
             </Typography>
           </Typography>
@@ -129,16 +150,25 @@ export default function SignUp() {
             name="DOB"
             type="date"
             variant="outlined"
+            size="small"
             onChange={(e) => {
               setDetails({ ...details, [e.target.name]: e.target.value });
             }}
+            sx={{
+              width: "60%",
+              alignSelf: "center",
+              marginLeft: "20%"
+            }}
           />
+          </div>
           <Button
             type="submit"
             variant="contained"
             className={Style.submit}
             sx={{
               textTransform: "none",
+              width: "50%",
+              alignSelf: "center"
             }}
             onClick={handleSubmit}
           >
