@@ -26,7 +26,7 @@ app.use(cors())
 
 // API
 app.use("/api/user", userRouter)
-app.use("/api/profile", checkAuthForProfile, receiveImageUrl, profileRouter)
+app.use("/api/profile", checkAuthForProfile, profileRouter)
 app.use("/api/login", loginRouter)
 app.use("/api/suggestion", checkAuthForProfile, suggestionRouter)
 app.use("/api/interaction", checkAuthForProfile, interactionRouter)

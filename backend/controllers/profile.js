@@ -1,13 +1,22 @@
 const profileModel = require("../models/profile");
 const UserModel = require("../models/user");
 const { create_Faiss_DB } = require("../RAG/profile");
+require('dotenv').config()
+const cloudinary = require("cloudinary").v2
+const fs = require('fs');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.C_API_KEY,
+  api_secret: process.env.C_API_SECRET
+})
 
 const createNewProfile = async (req, res) => {
   console.log(req.body);
   const profile_data = req.body;
   const profileStr = JSON.stringify(profile_data);
-  console.log(profileStr);
-  // await create_Faiss_DB([profileStr])
+  // console.log(profileStr)
+  await create_Faiss_DB([profileStr])
   const profile = await profileModel.create({
     ...profile_data,
     liked_to: [],
@@ -63,9 +72,25 @@ const checkAuthentication = async (req, res) => {
 };
 
 const returnImageUrl = async (req, res) => {
-  console.log(req?.file)
-
-  res.status(201).json({message: "Done loading"})
+  if (req.file){
+    const image = req.file.path;
+    cloudinary.uploader.upload(image).then((result)=>{
+      console.log(result)
+      fs.unlink(image, err => {
+        if (err) {
+          console.error(`Error deleting file ${image}:`, err);
+          res.status(500).json({error: "Failed to delete local file"});
+        } else {
+          res.status(201).json({url: result.url});
+        }
+      });
+    }).catch(err => {
+      console.error(`Cloudinary upload failed:`, err);
+      res.status(500).json({error: "Failed to upload image to Cloudinary"});
+    });
+  } else {
+    res.status(201).json({message: "File Not Uploaded"});
+  }
 }
 
 module.exports = { createNewProfile, getProfile, checkAuthentication, returnImageUrl };

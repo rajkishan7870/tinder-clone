@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema(
   {
-    // image: { type: [String], required: true },
+    image: { type: Array },
     bio: { type: String },
-    language: { type: String, required: true },
+    language: { type: String, },
     gender: { type: String, required: true },
-    height: { type: String, required: true },
-    college: { type: String, required: true },
-    location: { type: String, required: true },
+    height: { type: String,  },
+    college: { type: String, },
+    location: { type: String, },
     interested_in: { type: String, required: true },
-    relegion: { type: String, required: true },
+    relegion: { type: String,  },
     zodiac: { type: String },
     drinking_type: { type: String },
     smoking_type: { type: String },
