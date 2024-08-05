@@ -14,7 +14,17 @@ cloudinary.config({
 const createNewProfile = async (req, res) => {
   console.log(req.body);
   const profile_data = req.body;
-  profileDataForFaiss = profile_data
+  profileDataForFaiss = {
+    bio: profile_data.bio,
+    language: profile_data.language,
+    height: profile_data.height,
+    college: profile_data.college,
+    location: profile_data.location,
+    relegion: profile_data.relegion,
+    zodiac: profile_data.zodiac,
+    drinking_type: profile_data.drinking_type,
+    smoking_type: profile_data.smoking_type,
+  }
   metaData = {
     createdBy: req.user._id
   }
