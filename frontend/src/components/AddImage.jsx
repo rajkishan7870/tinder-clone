@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import style from "./AddImage.module.css";
@@ -10,8 +10,8 @@ import SaveButton from "./SaveButton";
 export default function AddImage() {
   const [addimagerecoil, setAddimagerecoil] = useRecoilState(profile_data)
   const [clickCount, setClickCount] = useState(0)
-  const [image, setImage] = useState({
-    image: []
+  const [imageUrl, setImageUrl] = useState({
+    image: [],
   })
   const [pic, setPic] = useState([
     {
@@ -47,14 +47,21 @@ export default function AddImage() {
   ]);
   const fileInputRef = useRef([]);
 
+  useEffect(()=>{
+    setAddimagerecoil({...addimagerecoil, ...imageUrl})
+  }, [imageUrl])
+
 
   const handleSubmit = (e)=>{
-    e.preventDefault();
+    e.preventDefault()
     const filteredPicArray = pic.filter(item => item.url !== "");
     const updatedImageArray = filteredPicArray.map(item => item.url);
-    setImage({ image: updatedImageArray });
-    console.log(image)
-    setAddimagerecoil({...addimagerecoil, ...image})
+    setImageUrl({image: updatedImageArray});
+    setAddimagerecoil(prevState => ({
+      ...prevState,
+      ...{ image: updatedImageArray },
+    }))
+    console.log(addimagerecoil)
     setClickCount(1)
   }
 
@@ -78,7 +85,6 @@ export default function AddImage() {
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const imageData = new FormData();
       imageData.append("image", pics);
-      console.log("Image: ", imageData.get("image"));
       axios
         .post("/api/profile/image", imageData, config)
         .then((res) => {
@@ -146,7 +152,7 @@ export default function AddImage() {
           </form>
         ))}
       </ImageList>
-      <SaveButton type="submit" onClick={handleSubmit} clickCount= {clickCount} />
+      <SaveButton onClick={handleSubmit} clickCount= {clickCount} />
     </>
   );
 }
