@@ -14,9 +14,11 @@ cloudinary.config({
 const createNewProfile = async (req, res) => {
   console.log(req.body);
   const profile_data = req.body;
-  const profileStr = JSON.stringify(profile_data);
-  // console.log(profileStr)
-  await create_Faiss_DB([profileStr])
+  profileDataForFaiss = profile_data
+  metaData = {
+    createdBy: req.user._id
+  }
+  await create_Faiss_DB(profileDataForFaiss, metaData)
   const profile = await profileModel.create({
     ...profile_data,
     liked_to: [],

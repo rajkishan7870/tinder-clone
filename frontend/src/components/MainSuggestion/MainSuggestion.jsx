@@ -1,4 +1,4 @@
-import React from 'react'
+import {React, useEffect} from 'react'
 import style from "./MainSuggestion.module.css"
 import SuggestionCard from './SuggestionCard'
 import { Card } from '@mui/material'
@@ -11,15 +11,22 @@ export default function MainSuggestion() {
 
   const cookies = document.cookie
   const token = cookies.split("token=")[1];
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  useEffect(()=>{
+    axios
+      .get("/api/suggestion/recommendation", config)
+      .then((res)=>{
+        console.log(res)
+      }).catch(err=>console.log(err))
+  },[])
 
   const handleDislike = () => {
-
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
     const toDisLikeData = {
       disliked_to: "sona@gmail.com",
     };
@@ -32,12 +39,6 @@ export default function MainSuggestion() {
   }
 
   const handleLike = () => {
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
     const toLikeData = {
       liked_to: "sona@gmail.com",
     };

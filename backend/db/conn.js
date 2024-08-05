@@ -5,7 +5,7 @@ const connectDB = async () => {
             console.log("Database connection done")
         })
         .catch((err) => {
-            console.log("No Database connection-1")
+            console.log("No Database connection")
         })
 }
 
