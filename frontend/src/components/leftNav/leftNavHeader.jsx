@@ -63,7 +63,7 @@ function LeftNavHeader() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Kishan Kumar" src="" />
+                <Avatar alt="Kishan Kumar" src={profile?.image[0]} />
               </IconButton>
             </Tooltip>
             <Menu

@@ -68,7 +68,7 @@ export default function MatchingReq() {
               <div className={style.eleDiv1}>
                 <img
                   className={style.image}
-                  src="https://photosnow.org/wp-content/uploads/2024/04/beautiful-girl-photo_13.jpg"
+                  src={ele?.image[0]}
                   alt="profile"
                 />
                 <div>{ele.createdBy.name}</div>

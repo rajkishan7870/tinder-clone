@@ -12,9 +12,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const receiveImageUrl = async (req, res, next) => { 
-    req.image = upload.single('image')
-    next()
+
+const receiveImageFile = async (req, res, next) =>{
+  await upload.single('image')
+  next()
 }
 
-module.exports = receiveImageUrl
+
+module.exports = {receiveImageFile}
