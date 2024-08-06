@@ -69,6 +69,7 @@ const retrieveFromFaissDb = async (docs)=>{
     embeddings
   );
   const res = await local_db.similaritySearchWithScore(docs, 10)
+  console.log(res)
   return res  
 }
 

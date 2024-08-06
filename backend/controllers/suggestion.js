@@ -70,16 +70,16 @@ const recommendationwithRAG = async (req, res) =>{
         createdBy: { $in: createdByArray }
       }).populate({ path: "createdBy", model: "User" });
 
-    suggestedProfileForInterest = suggestedProfile.filter((profile)=>{
-      profile.gender === profileData.interested_in
-    })
-    if (suggestedProfileForInterest){
-      suggestedProfileForInterest = suggestedProfileForInterest
-    }
-    else{
-      suggestedProfileForInterest = []
-    }
-    res.status(201).json(suggestedProfileForInterest)
+    // suggestedProfileForInterest = suggestedProfile.filter((profile)=>{
+    //   profile.gender === profileData.interested_in
+    // })
+    // if (suggestedProfileForInterest){
+    //   suggestedProfileForInterest = suggestedProfileForInterest
+    // }
+    // else{
+    //   suggestedProfileForInterest = []
+    // }
+    res.status(201).json(suggestedProfile)
   }else{
     res.status(201).json({message: "No Profile Data"})
   }
