@@ -11,14 +11,9 @@ const createNewUser = async (req, res) => {
   console.log(req.body);
   const { name, email, password, phone, DOB } = req.body;
 
-  if (!name || !email || !password) {
-    res.status(400);
-    alert("Please Enter all the Fields");
-  }
   const userExists = await UserModel.findOne({ email });
   if (userExists) {
-    res.status(400);
-    alert("User already Exist");
+    res.status(201).json({message: "User Already Exists"})
   }
 
   salt = await bcrypt.genSalt(10);
@@ -40,8 +35,7 @@ const createNewUser = async (req, res) => {
       DOB: user.DOB,
     });
   } else {
-    res.status(401);
-    alert("Failed to create User");
+    res.status(201).json({message: "Failed to create User"});
   }
 };
 
