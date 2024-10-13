@@ -22,7 +22,9 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors())
+app.use(cors({
+  origin: 'https://tinder-clone-uhte.onrender.com',
+}))
 
 
 // API
