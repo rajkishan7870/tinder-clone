@@ -41,6 +41,7 @@ export default function SignUp() {
       phone: details.phone,
       DOB: details.DOB,
     };
+    console.log(userData)
     axios
       .post("/api/user", userData, config)
       .then((response) => {
