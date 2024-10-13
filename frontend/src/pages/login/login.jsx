@@ -109,7 +109,6 @@ export default function Login() {
             </Button>
 
             <TextField
-              id="outlined-basic"
               name="email"
               type="email"
               label="Email"
@@ -123,7 +122,6 @@ export default function Login() {
               }}
             />
             <TextField
-              id="outlined-basic"
               type="password"
               label="Password"
               name="password"
