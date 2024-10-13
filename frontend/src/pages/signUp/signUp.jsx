@@ -44,7 +44,7 @@ export default function SignUp() {
     axios
       .post("/api/user", userData, config)
       .then((response) => {
-        console.log(response.status);
+        console.log(response);
       });
     navigate("/login");
   }
